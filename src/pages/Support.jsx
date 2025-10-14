@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaQuestionCircle } from "react-icons/fa";
 import "../styles/support.css";
 
@@ -47,7 +47,6 @@ export function Support() {
         <p>토요일, 일요일, 공휴일 휴무</p>
         <div className="support-buttons">
           <button onClick={() => setShowChatbot(true)}>1:1 문의하기</button>
-          {/* <button>자전거 정품 등록</button> */}
         </div>
       </div>
 
@@ -77,27 +76,32 @@ export function Support() {
   );
 }
 
-// ✅ FAQ 섹션
+// ✅ FAQ 섹션 (JSON 연결 버전)
 function FAQ() {
-  const faqs = [
-    { q: "첼로 의왕 공장에서 직접 A/S 받을 수 있을까요?", a: "공장에서는 직접 접수가 불가하며, 가까운 대리점을 이용해주세요." },
-    { q: "아이디 및 비밀번호를 잊어버렸습니다.", a: "로그인 화면에서 비밀번호 찾기를 이용해주세요." },
-    { q: "제품의 교환 및 환불 규정은 어떻게 되나요?", a: "구입 후 7일 이내 미사용 상태에서 교환 또는 환불 가능합니다." },
-  ];
-
+  const [faqs, setFaqs] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
+
+  useEffect(() => {
+    fetch("/data/qna.json")
+      .then((res) => res.json())
+      .then((data) => setFaqs(data))
+      .catch((err) => console.error("❌ QNA 데이터를 불러오지 못했습니다:", err));
+  }, []);
+
   return (
     <div className="faq-section">
       {faqs.map((item, i) => (
         <div
-          key={i}
+          key={item.qid}
           className={`faq-item ${openIndex === i ? "open" : ""}`}
           onClick={() => setOpenIndex(openIndex === i ? null : i)}
         >
           <div className="faq-question">
             <FaQuestionCircle /> <span>{item.q}</span>
           </div>
-          {openIndex === i && <div className="faq-answer">{item.a}</div>}
+          {openIndex === i && (
+            <div className="faq-answer whitespace-pre-line">{item.a}</div>
+          )}
         </div>
       ))}
     </div>
