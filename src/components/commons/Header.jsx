@@ -6,7 +6,8 @@ export function Header() {
       {/* 좌측 로고 */}
       <div className="header-left">
         <Link to="/" className="logo">
-          🚴‍♂️ Bicycle-App
+          {/* 🚴‍♂️ Bicycle-App */}
+          Bicycle-App
         </Link>
       </div>
 
@@ -35,11 +36,13 @@ export function Header() {
       <div className="header-right">
         <NavLink to="/support" className={({ isActive }) => isActive ? 'active' : ''}>
           고객센터
+          {/* <i className="fa-solid fa-headset"></i> */}
         </NavLink>
         <NavLink to="/login" className={({ isActive }) => isActive ? 'active' : ''}>
           로그인
+          {/* <i className="fa-regular fa-user"></i> */}
         </NavLink>
-        <button className="search-btn">🔍</button>
+        <button className="search-btn"><i className="fa-solid fa-magnifying-glass"></i></button>
       </div>
     </header>
   );
