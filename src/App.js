@@ -6,14 +6,15 @@ import { Rental } from './pages/Rental.jsx';
 import { Travel } from './pages/Travel.jsx';
 import { Support } from './pages/Support.jsx';
 import { Login } from './pages/Login.jsx';
+import ScrollToTop from "./components/ScrollToTop";
 
-import './styles/header.css';
-import './styles/footer.css';
+import './styles/commons.css';
 import './styles/home.css';
 
 export default function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />

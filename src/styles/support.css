@@ -1,3 +1,4 @@
+/* 고객센터 */
 .support-page {
   text-align: center;
   padding: 60px 20px;
@@ -44,7 +45,7 @@
 
 /* FAQ */
 .faq-section {
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
   text-align: left;
 }
@@ -62,14 +63,178 @@
 
 .faq-question {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
+  cursor: pointer;
+  padding: 10px 0;
+}
+
+.faq-text {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: -5px;
+}
+
+.faq-q {
   font-weight: 500;
+  font-size: 16px;
+  color: #222;
+}
+
+.faq-category {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
 }
 
 .faq-answer {
-  margin-top: 10px;
-  color: #555;
+  padding: 15px 25px;
+  background: #eeeeee;
+  line-height: 1.6;
+  font-size: 14px;
+  color: #333;
+  white-space: pre-line;
+}
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 25px;
+}
+
+.pagination button {
+  border: none;
+  background: #f1f1f1;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.pagination button.active {
+  background: #333;
+  color: #fff;
+  font-weight: 600;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* A/S 안내 */
+.as-section {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+  color: #444;
+}
+
+.as-section ul {
+  padding: 0;
+}
+
+.as-section .c-red {
+  color: #E40046 ;
+}
+
+.as-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  padding: 1.25rem 0;
+  margin: 0;
+}
+
+.as-desc {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.as-div {
+  padding: 1.25rem;
+}
+
+.as-div.main {
+  padding-bottom: 30px;
+  border-bottom: 1px solid #eee;
+}
+
+.as-box {
+  font-size: 13px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1.25rem !important;
+  margin: 1.25rem 0;
+}
+
+.as-img-box {
+  /* margin: 1.25rem 0; */
+}
+
+.as-img-box img {
+  width: 100%;
+  height: auto;
+}
+
+/* 자료실 */
+.resources-section {
+  margin-top: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.resources-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.resources-filter {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 10px;
+  
+}
+
+.resources-list {
+  list-style: none;
+  padding: 0;
+}
+
+.resources-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.resources-item:hover {
+  background: #f8f8f8;
+}
+
+.file-icon {
+  margin-right: 8px;
+}
+
+.file-type {
+  display: flex;
+  justify-content: right;
+  font-size: 14px;
+  color: #888;
+}
+
+.file-type i {
+  position: relative;
+  top: 5px;
+  padding-right: 5px;
 }
 
 /* 고객센터 안내 */
