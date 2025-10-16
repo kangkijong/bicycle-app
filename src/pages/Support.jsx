@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { FaQuestionCircle } from "react-icons/fa";
 import "../styles/support.css";
 
 export function Support() {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("faq");
   const [showChatbot, setShowChatbot] = useState(false);
+
+  // Footer에서 전달된 탭으로 초기 세팅
+  useEffect(() => {
+    if (location.state?.tab) {
+      setActiveTab(location.state.tab);
+    }
+    // 페이지 열릴 때 항상 상단으로 이동
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.state]);
 
   return (
     <div className="support-page">
@@ -185,7 +196,7 @@ function ASInfo() {
           <li>5) 고객지원팀에서 제품 접수후 대리점으로 접수 통보 안내</li>
           <li>6) 최종 보증 수리후 정비내역서를 동봉하여 대리점으로 발송</li>
           <li>7) 대리점에서 제품 수령후 구매자에게 제품 처리결과 안내</li>
-      </ul>
+        </ul>
         <p className="as-desc">고객지원팀으로 접수된 A/S는 운송기간을 제외하고 최소 영업일 기준 10일의 판정 및 수리기간이 발생할 수 있으며 모든 보증수리는 해당 부품업체의 결함 판정 기준에 따릅니다. 보증 수리는 경우에 따라 처리시일이 연장될 수 있습니다. 검수가 길어지거나 교체품이 부족한 경우에는 고객님께 별도의 연락을 드립니다.</p>
       </div>
       <div className="as-div">
@@ -207,7 +218,7 @@ function ASInfo() {
           <li>- 사용중 제품의 조립과정중 발생하는 흠집이나 도색 벗겨짐 </li>
           <li>- 호환되지 않는 부품조합을 사용하는 경우</li>
           <li>- 고객 인도후 배송 중 발생되는 손상의 경우</li>
-      </ul>
+        </ul>
       </div>
     </div>
   );
@@ -225,28 +236,42 @@ function Resources() {
   useEffect(() => {
     fetch("/data/resources.json")
       .then((res) => res.json())
-      .then((data) => setResources(data.sort((a, b) => a.id - b.id)))
-      .catch((err) => console.error("❌ 자료실 데이터를 불러오지 못했습니다:", err));
+      .then((data) => {
+        // ✅ 원본 불변성 유지 + 정렬
+        const sorted = [...data].sort((a, b) => a.id - b.id);
+        setResources(sorted);
+      })
+      .catch((err) =>
+        console.error("❌ 자료실 데이터를 불러오지 못했습니다:", err)
+      );
   }, []);
 
+  // ✅ 필터링된 데이터
   const filtered =
     filter === "전체"
       ? resources
       : resources.filter((item) => item.category === filter);
 
+  // ✅ 페이징 계산
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = filtered.slice(startIndex, startIndex + itemsPerPage);
 
+  // ✅ PDF 열기 (중복 클릭 방지)
+  const handleOpenPDF = (url) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div className="resources-section">
+      {/* 필터 드롭다운 */}
       <div className="resources-header">
         <select
           className="resources-filter"
           value={filter}
           onChange={(e) => {
             setFilter(e.target.value);
-            setCurrentPage(1);
+            setCurrentPage(1); // 필터 변경 시 첫 페이지로
           }}
         >
           <option value="전체">전체</option>
@@ -256,14 +281,15 @@ function Resources() {
         </select>
       </div>
 
+      {/* ✅ 자료 리스트 */}
       <ul className="resources-list">
         {currentItems.map((item) => (
           <li
             key={item.id}
             className="resources-item"
             onClick={(e) => {
-              e.stopPropagation();
-              window.open(item.url, "_blank", "noopener,noreferrer");
+              e.preventDefault();
+              handleOpenPDF(item.url);
             }}
           >
             <span className="file-icon">
@@ -275,8 +301,13 @@ function Resources() {
             </span>
           </li>
         ))}
+
+        {currentItems.length === 0 && (
+          <li className="no-data">자료가 없습니다.</li>
+        )}
       </ul>
 
+      {/* ✅ 페이지네이션 */}
       {totalPages > 1 && (
         <Pagination
           totalPages={totalPages}
@@ -292,10 +323,19 @@ function Resources() {
  *  공통 페이지네이션 컴포넌트
  * ------------------------------ */
 function Pagination({ totalPages, currentPage, setCurrentPage }) {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    scrollToTop();
+  };
+
   return (
     <div className="pagination">
       <button
-        onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+        onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
         disabled={currentPage === 1}
       >
         이전
@@ -305,14 +345,14 @@ function Pagination({ totalPages, currentPage, setCurrentPage }) {
         <button
           key={i}
           className={currentPage === i + 1 ? "active" : ""}
-          onClick={() => setCurrentPage(i + 1)}
+          onClick={() => handlePageChange(i + 1)}
         >
           {i + 1}
         </button>
       ))}
 
       <button
-        onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+        onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
         disabled={currentPage === totalPages}
       >
         다음

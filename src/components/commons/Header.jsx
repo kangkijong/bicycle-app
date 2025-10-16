@@ -6,7 +6,6 @@ export function Header() {
       {/* 좌측 로고 */}
       <div className="header-left">
         <Link to="/" className="logo">
-          {/* 🚴‍♂️ Bicycle-App */}
           Bicycle-App
         </Link>
       </div>

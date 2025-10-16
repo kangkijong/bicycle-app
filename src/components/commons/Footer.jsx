@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Footer() {
   const [showTop, setShowTop] = useState(false);
+  const navigate = useNavigate();
 
   // 스크롤 감지해서 버튼 표시 여부 결정
   useEffect(() => {
@@ -30,11 +32,23 @@ export function Footer() {
         {/* 중앙 링크 섹션 */}
         <div className="footer-links">
           <div>
-            <h4>고객지원</h4>
+            <h4>고객센터</h4>
             <ul>
-              <li><a href="#">A/S 및 품질 보증</a></li>
-              <li><a href="#">자전거 정품 등록</a></li>
-              <li><a href="#">자료실</a></li>
+              <li>
+                <button onClick={() => navigate("/support", { state: { tab: "faq" } })}>
+                  자주 묻는 질문
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigate("/support", { state: { tab: "as" } })}>
+                  A/S 안내
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigate("/support", { state: { tab: "data" } })}>
+                  자료실
+                </button>
+              </li>
             </ul>
           </div>
           <div>

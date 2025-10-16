@@ -131,6 +131,18 @@
   color: var(--color-blue);
 }
 
+.footer-links button {
+  color: #555555;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.footer-links button:hover {
+  color: var(--color-blue);
+}
+
 /* 오른쪽 회사 정보 */
 .footer-info {
   max-width: 300px;

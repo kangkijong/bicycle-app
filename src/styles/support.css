@@ -65,7 +65,6 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  cursor: pointer;
   padding: 10px 0;
 }
 
@@ -97,35 +96,6 @@
   white-space: pre-line;
 }
 
-/* 페이지네이션 */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  margin-top: 25px;
-}
-
-.pagination button {
-  border: none;
-  background: #f1f1f1;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.pagination button.active {
-  background: #333;
-  color: #fff;
-  font-weight: 600;
-}
-
-.pagination button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
 /* A/S 안내 */
 .as-section {
   max-width: 800px;
@@ -139,7 +109,7 @@
 }
 
 .as-section .c-red {
-  color: #E40046 ;
+  color: #E40046;
 }
 
 .as-title {
@@ -171,10 +141,6 @@
   margin: 1.25rem 0;
 }
 
-.as-img-box {
-  /* margin: 1.25rem 0; */
-}
-
 .as-img-box img {
   width: 100%;
   height: auto;
@@ -182,38 +148,51 @@
 
 /* 자료실 */
 .resources-section {
-  margin-top: 40px;
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  text-align: left;
+  padding: 40px 20px;
+  font-family: "Pretendard", sans-serif;
+  color: #222;
 }
 
+/* 필터 */
 .resources-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+  justify-content: flex-start;
+  margin-bottom: 20px;
 }
 
 .resources-filter {
+  padding: 8px 12px;
+  font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 6px 10px;
-  
+  border-radius: 6px;
+  outline: none;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
+.resources-filter:hover {
+  border-color: #999;
+}
+
+/* 리스트 */
 .resources-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .resources-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px 10px;
-  border-bottom: 1px solid #eee;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 12px 8px;
   cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .resources-item:hover {
@@ -221,20 +200,93 @@
 }
 
 .file-icon {
-  margin-right: 8px;
+  flex-shrink: 0;
+  margin-right: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.file-title {
+  flex: 1;
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #222;
 }
 
 .file-type {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: #555;
   display: flex;
-  justify-content: right;
-  font-size: 14px;
-  color: #888;
+  align-items: center;
+  gap: 5px;
 }
 
 .file-type i {
-  position: relative;
-  top: 5px;
-  padding-right: 5px;
+  font-size: 13px;
+}
+
+.no-data {
+  text-align: center;
+  color: #888;
+  padding: 40px 0;
+  font-size: 15px;
+}
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  gap: 5px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #f2f2f2;
+}
+
+.pagination button.active {
+  background: #222;
+  color: #fff;
+  border-color: #222;
+}
+
+.pagination button:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+  background: #f9f9f9;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .resources-section {
+    padding: 20px 10px;
+  }
+
+  .file-title {
+    font-size: 14px;
+  }
+
+  .file-type {
+    font-size: 12px;
+  }
+
+  .pagination button {
+    padding: 5px 10px;
+    font-size: 13px;
+  }
 }
 
 /* 고객센터 안내 */
@@ -283,7 +335,7 @@
   height: 420px;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -299,8 +351,8 @@
 }
 
 .chatbot-header h4 {
-    margin: 0;
-    text-indent: 8px;
+  margin: 0;
+  text-indent: 8px;
 }
 
 .chatbot-body {
