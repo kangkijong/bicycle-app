@@ -7,15 +7,44 @@ export function Support() {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("faq");
   const [showChatbot, setShowChatbot] = useState(false);
+  const [messages, setMessages] = useState([
+    { sender: "bot", text: "안녕하세요 😊 무엇을 도와드릴까요?" },
+  ]);
+  const [input, setInput] = useState("");
 
-  // Footer에서 전달된 탭으로 초기 세팅
+  // Footer에서 전달된 탭 초기화
   useEffect(() => {
-    if (location.state?.tab) {
-      setActiveTab(location.state.tab);
-    }
-    // 페이지 열릴 때 항상 상단으로 이동
+    if (location.state?.tab) setActiveTab(location.state.tab);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location.state]);
+
+  // 간단한 자동응답 규칙
+  const handleBotResponse = (userInput) => {
+    const lower = userInput.toLowerCase();
+    if (lower.includes("a/s") || lower.includes("as"))
+      return "A/S 관련 문의는 고객센터 > A/S 안내 탭을 참고해주세요.";
+    if (lower.includes("자료") || lower.includes("다운로드"))
+      return "자료실 탭에서 관련 문서를 다운로드할 수 있습니다.";
+    if (lower.includes("문의") || lower.includes("상담"))
+      return "문의사항은 고객센터 페이지 하단의 연락처를 이용해주세요.";
+    if (lower.includes("운영시간"))
+      return "고객센터 운영시간은 평일 09:00 ~ 18:00 입니다.";
+    return "죄송합니다. 그 부분은 아직 학습되지 않았어요 😅";
+  };
+
+  const handleSend = () => {
+    if (!input.trim()) return;
+
+    const newMessage = { sender: "user", text: input };
+    setMessages((prev) => [...prev, newMessage]);
+
+    setTimeout(() => {
+      const reply = handleBotResponse(input);
+      setMessages((prev) => [...prev, { sender: "bot", text: reply }]);
+    }, 600);
+
+    setInput("");
+  };
 
   return (
     <div className="support-page">
@@ -61,24 +90,39 @@ export function Support() {
         </div>
       </div>
 
+      {/* 💬 챗봇 아이콘 버튼 */}
+      <button className="chatbot-toggle" onClick={() => setShowChatbot(true)}>
+        <FaQuestionCircle size={30} />
+      </button>
+
       {/* 챗봇 팝업 */}
       {showChatbot && (
         <div className="chatbot-popup">
           <div className="chatbot-window">
             <div className="chatbot-header">
               <h4>고객센터 챗봇</h4>
-              <button
-                className="close-btn"
-                onClick={() => setShowChatbot(false)}
-              >
+              <button className="close-btn" onClick={() => setShowChatbot(false)}>
                 ✕
               </button>
             </div>
+
             <div className="chatbot-body">
-              <p>안녕하세요 😊 무엇을 도와드릴까요?</p>
-              <div className="chatbot-placeholder">
-                (여기에 챗봇 대화 UI를 나중에 연결할 수 있습니다.)
-              </div>
+              {messages.map((msg, idx) => (
+                <div key={idx} className={`chat-msg ${msg.sender}`}>
+                  {msg.text}
+                </div>
+              ))}
+            </div>
+
+            <div className="chatbot-input">
+              <input
+                type="text"
+                placeholder="메시지를 입력하세요..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSend()}
+              />
+              <button onClick={handleSend}>전송</button>
             </div>
           </div>
         </div>
