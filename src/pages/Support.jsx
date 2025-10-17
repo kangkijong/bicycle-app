@@ -91,9 +91,9 @@ export function Support() {
       </div>
 
       {/* 💬 챗봇 아이콘 버튼 */}
-      <button className="chatbot-toggle" onClick={() => setShowChatbot(true)}>
+      {/* <button className="chatbot-toggle" onClick={() => setShowChatbot(true)}>
         <FaQuestionCircle size={30} />
-      </button>
+      </button> */}
 
       {/* 챗봇 팝업 */}
       {showChatbot && (

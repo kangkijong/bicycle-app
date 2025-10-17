@@ -224,6 +224,7 @@
 
 .footer-policy {
   margin-top: 10px;
+  text-decoration: underline;
 }
 
 .footer-policy a {
@@ -232,12 +233,12 @@
   margin-right: 10px;
 }
 
-.footer-lang {
+/* .footer-lang {
   margin-top: 15px;
   padding: 5px;
   border: 1px solid #ccc;
   background: var(--color-white);
-}
+} */
 
 .footer-bottom {
   text-align: center;

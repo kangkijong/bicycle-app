@@ -323,7 +323,7 @@
 }
 
 /* 💬 챗봇 아이콘 버튼 */
-.chatbot-toggle {
+/* .chatbot-toggle {
   position: fixed;
   bottom: 40px;
   right: 40px;
@@ -336,13 +336,13 @@
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   z-index: 999;
-}
+} */
 
-.chatbot-toggle:hover {
+/* .chatbot-toggle:hover {
   background-color: #005fa3;
-}
+} */
 
-/* 🪟 챗봇 팝업 */
+/* 챗봇 팝업 */
 .chatbot-popup {
   position: fixed;
   bottom: 110px;
@@ -361,7 +361,7 @@
   overflow: hidden;
 }
 
-/* 헤더 */
+/* 챗봇 헤더 */
 .chatbot-header {
   background-color: var(--color-blue);
   color: #fff;
