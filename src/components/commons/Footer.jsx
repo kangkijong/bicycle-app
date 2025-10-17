@@ -83,9 +83,9 @@ export function Footer() {
             서울특별시 강남구 테헤란로 123 (테스트빌딩 7층)
           </p>
           <div className="footer-policy">
-            <a href="#">이용약관</a>
-            <a href="#">개인정보 처리방침</a>
-            <a href="#">내부정보 관리규정</a>
+            <a href="/policies/Terms">이용약관</a>
+            <a href="/policies/Privacy">개인정보 처리방침</a>
+            <a href="/policies/InternalPolicy">내부정보 관리규정</a>
           </div>
 
           {/* 언어 선택 */}

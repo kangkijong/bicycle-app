@@ -23,6 +23,9 @@ export default function App() {
           <Route path="travel" element={<Travel />} />
           <Route path="support" element={<Support />} />
           <Route path="login" element={<Login />} />
+          <Route path="/policies/Terms" element={<Login />} />
+          <Route path="/policies/Privacy" element={<Login />} />
+          <Route path="/policies/InternalPolicy" element={<Login />} />
         </Route>
       </Routes>
     </BrowserRouter>
